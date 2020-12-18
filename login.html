@@ -6,67 +6,139 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+ <script src="https://sdk.amazonaws.com/js/aws-sdk-2.244.1.min.js"></script>
+ <script type="text/javascript" src="amazon-cognito-auth.min.js"></script>
+  <script type="text/javascript" src="amazon-cognito-identity.min.js"></script>
  <script type="text/javascript" src="connect.js"></script>
 
 </head>
 <body>
-<div class="login-wrap">
-  <div class="login-html">
-    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
-    <div class="login-form">
-      <div class="sign-in-htm">
-        <div style="text-align: center;color: red;font-family: cursive;">#</div>
-        <form  id="signin" method="POST">
-              <div class="group">
-                <label for="user" class="label">Email</label>
-                <input id="user" type="email" class="input" name="email" required>
-              </div>
-              <div class="group">
-                <label for="pass" class="label">Password</label>
-                <input id="pass" type="password" class="input" data-type="password" name="password" required>
-              </div>
-              <div class="group">
-                <input id="check" type="checkbox" class="check" checked>
-                <label for="check"><span class="icon" style="color: lightgrey;"></span> Remember me</label>
-              </div>
-              <div class="group">
-                <input type="submit" class="button" value="Sign In">
+<div id ='loginSystem' >
+    <div class="login-wrap">
+      <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+        <div class="login-form">
+          <div class="sign-in-htm">
+            <div id='result' style="text-align: center;color: red;font-family: cursive;"></div>
+            <form  id="signin" method="POST">
+                  <div class="group">
+                    <label for="user" class="label">Email</label>
+                    <input id="user" type="email" class="input" name="email" required>
+                  </div>
+                  <div class="group">
+                    <label for="pass" class="label">Password</label>
+                    <input id="pass" type="password" class="input" data-type="password" name="password" required>
+                  </div>
+                  <div class="group">
+                    <input id="check" type="checkbox" class="check" checked>
+                    <label for="check"><span class="icon" style="color: lightgrey;"></span> Remember me</label>
+                  </div>
+                  <div class="group">
+                    <input type="submit" class="button" value="Sign In">
 
-              </div>
-      </form>
-        
-        <div class="hr"></div>
-        <div class="foot-lnk">
-          <a href="{{url_for('home')}}">Back to Home</a>
-        </div>
-      </div>
-      <form method="POST" id="submitRegister">
-          <div class="sign-up-htm">
-            <div class="group">
-              <label for="userRegestration" class="label" >Username</label>
-              <input id="userRegestration" type="text" class="input" name="sign_username" required>
-            </div>
-            <div class="group">
-              <label for="passRegestration" class="label" >Password</label>
-              <input id="passRegestration" type="password" class="input" data-type="password" name="sign_password" required>
-            </div>
-            <div class="group">
-              <label for="emailRegestration" class="label" >Email Address</label>
-              <input id="emailRegestration" type="email" class="input" name="sign_email" required>
-            </div>
-            <div class="group">
-              <input type="submit" class="button" value="Sign Up">
-            </div>
+                  </div>
+          </form>
+            
             <div class="hr"></div>
             <div class="foot-lnk">
-              <label for="tab-1">Already Member?</a>
+              <a href="{{url_for('home')}}">Back to Home</a>
             </div>
           </div>
-      </form>
+          <form method="POST" id="submitRegister">
+              <div class="sign-up-htm">
+                <div class="group">
+                  <label for="userRegestration" class="label" >Username</label>
+                  <input id="userRegestration" type="text" class="input" name="sign_username" required>
+                </div>
+                <div class="group">
+                  <label for="passRegestration" class="label" >Password</label>
+                  <input id="passRegestration" type="password" class="input" data-type="password" name="sign_password" required>
+                </div>
+                <div class="group">
+                  <label for="emailRegestration" class="label" >Email Address</label>
+                  <input id="emailRegestration" type="email" class="input" name="sign_email" required>
+                </div>
+                <div class="group">
+                  <input type="submit" class="button" value="Sign Up">
+                </div>
+                <div class="hr"></div>
+                <div class="foot-lnk">
+                  <label for="tab-1">Already Member?</a>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
+  <div id="emailSystem" style="display: none;">
+      
+    
+    <div id='navbar'>
+          <ul>
+            <li><a id='sent_email' class="active" href="#home" style="float: left;" onclick="emailnav('sent_email')">Sent Email</a></li>
+            <li><a href="#Compose" id='compose_email' style="float: left;" onclick="emailnav('compose_email')">Compose</a></li>
+            <li><a href="#Logout" id = 'logout' style="float: right;" onclick="emailnav('logout')">Logout</a></li>
+            <li><a href="#" id='loggedinUser' style="float: right;"></a></li>
+            
+          </ul>
+    </div>
+
+
+      <div id=ComposeEmail style="margin-top: 25px; display: none;">
+
+          <form>
+            
+              <div class="group">
+                <label for="c_e_sender" class="label">Sender</label> <br>
+                <input id='c_e_sender' disabled="true" type="text" name="sender" style="cursor: not-allowed;">
+              </div>
+              <br><br>
+               <div class="group">
+                <label for="c_e_receivers" class="label">Receivers</label> <br>
+                <input id='c_e_receivers' type="text" name="receivers">
+              </div>
+
+              <div class="group">
+                <label for="c_e_cc" class="label">CC</label> <br>
+                <input id='c_e_cc' type="text" name="cc">
+              </div>
+
+              <div class="group">
+                <label for="c_e_bcc" class="label">Bcc</label> <br>
+                <input id='c_e_bcc' type="text" name="bcc">
+              </div>
+
+                <br><br>
+               <div class="group">
+                <label for="c_e_sub" class="label">Subject</label> <br>
+                <input id='c_e_sub' type="text" name="sub" width="100px">
+              </div>
+
+              <br><br>
+               <div class="group">
+                <label for="c_e_msg" class="label">Message</label> <br><br>
+                <button style="font-size: large; font-weight: bold;" id='bold' onclick="changeFont('bold')">B</button>
+                <button style="font-size: large; font-style: italic;" id='italic' onclick="changeFont('italic')">I</button>
+                <button style="font-size: large; text-decoration: underline;" id='underline' onclick="changeFont('underline')">U</button><br>
+                <textarea id='c_e_msg' name="msg" rows="20" cols="100"></textarea>
+              </div>
+              
+              <div class="group">
+                  <input type="submit" class="button" value="Send">
+                  <input type="submit" class="button" value="Draft">
+              </div>
+              
+                  
+        
+
+          </form>
+        
+      </div>
+    
+  </div>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 body{
   margin:1.8%;
   color:#6a6f8c;
- 
+  background:linear-gradient(45deg,cyan,#f3fffc);
   font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
@@ -24,6 +24,7 @@ a{color:inherit;text-decoration:none}
   position:absolute;
   padding:90px 70px 50px 70px;
   background:rgba(255,255,255);
+
 }
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
@@ -174,7 +175,7 @@ li a:hover:not(.active) {
 }
 
 .active {
-  background-color: #4CAF50;
+  background-color: #5dcecc;
 }
 
 input[type=text], select {
@@ -214,6 +215,75 @@ input[type=submit]:hover {
 
 #ComposeEmail {
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: #fff;
   padding: 20px;
+}
+
+
+table
+{
+    
+    
+    top:25%;
+    left:50%;
+    
+    width:100%;
+    overflow:hidden;
+   
+    
+
+}
+
+th,td
+{
+    padding:10px;
+    position:relative;
+    text-align:center;
+    color:rgba(0,0,0,0.7);
+    cursor:default;
+}
+
+th
+{
+    background-color:rgba(0,0,0,0.3);
+}
+
+tbody th
+{
+    text-align:left;
+    white-space:nowrap;
+}
+
+td
+{
+    background-color:rgba(0,255,255,0.1);
+}
+
+tbody>tr:hover th,tbody>tr:hover td
+{
+    background:rgba(255,255,255,0.2);
+}
+
+td:hover:after,thead th:hover:after
+{
+    content:"";
+    position:absolute;
+    z-index:-2;
+    top: -5px;
+    left:0;
+    width:100%;
+    height:50px;
+    background:rgba(255,255,255,0.2);
+}
+
+thead tr th:first-child:hover:after
+{
+    content:"";
+    position:absolute;
+    z-index:-5;
+    top: -5px;
+    left:0;
+    width:100%;
+    height:50px;
+    background:rgba(0,0,0,0.01);
 }

@@ -4,7 +4,7 @@
   <title>Login</title>
   <link rel="shortcut icon" href="#">
   <link rel="stylesheet" type="text/css" href="style.css">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.244.1.min.js"></script>
  <script type="text/javascript" src="amazon-cognito-auth.min.js"></script>
@@ -30,10 +30,7 @@
                     <label for="pass" class="label">Password</label>
                     <input id="pass" type="password" class="input" data-type="password" name="password" required>
                   </div>
-                  <div class="group">
-                    <input id="check" type="checkbox" class="check" checked>
-                    <label for="check"><span class="icon" style="color: lightgrey;"></span> Remember me</label>
-                  </div>
+                  <br><br>
                   <div class="group">
                     <input type="submit" class="button" value="Sign In">
 
@@ -41,9 +38,7 @@
           </form>
             
             <div class="hr"></div>
-            <div class="foot-lnk">
-              <a href="{{url_for('home')}}">Back to Home</a>
-            </div>
+            
           </div>
           <form method="POST" id="submitRegister">
               <div class="sign-up-htm">
@@ -79,6 +74,7 @@
     <div id='navbar'>
           <ul>
             <li><a id='sent_email' class="active" href="#home" style="float: left;" onclick="emailnav('sent_email')">Sent Email</a></li>
+            <li><a id='draft_email' href="#draft_email" style="float: left;" onclick="emailnav('draft_email')">Draft Email</a></li>
             <li><a href="#Compose" id='compose_email' style="float: left;" onclick="emailnav('compose_email')">Compose</a></li>
             <li><a href="#Logout" id = 'logout' style="float: right;" onclick="emailnav('logout')">Logout</a></li>
             <li><a href="#" id='loggedinUser' style="float: right;"></a></li>
@@ -89,26 +85,29 @@
 
       <div id=ComposeEmail style="margin-top: 25px; display: none;">
 
-          <form>
+          <form id='composeEmailDetail' >
             
               <div class="group">
                 <label for="c_e_sender" class="label">Sender</label> <br>
                 <input id='c_e_sender' disabled="true" type="text" name="sender" style="cursor: not-allowed;">
               </div>
               <br><br>
-               <div class="group">
+               <div class="group">  
                 <label for="c_e_receivers" class="label">Receivers</label> <br>
                 <input id='c_e_receivers' type="text" name="receivers">
+                <strong id="rec_danger" style="color: red; display:none;"></strong>
               </div>
 
               <div class="group">
                 <label for="c_e_cc" class="label">CC</label> <br>
                 <input id='c_e_cc' type="text" name="cc">
+                <strong id="cc_danger" style="color: red; display:none;"></strong>
               </div>
 
               <div class="group">
                 <label for="c_e_bcc" class="label">Bcc</label> <br>
                 <input id='c_e_bcc' type="text" name="bcc">
+                <strong id="bcc_danger" style="color: red; display:none;"></strong>
               </div>
 
                 <br><br>
@@ -136,9 +135,108 @@
 
           </form>
         
-      </div>
+        </div>
     
-  </div>
+      </div>
+
+    <div id="sentEmail" style="display: none;">
+
+      <table id="detailsSentEmail">
+    
+          <thead>
+              <tr>
+                  
+                  <th>
+                  </th>
+                  
+                  <th>
+                     Sender
+                  </th>
+                  
+                  <th>
+                      Receiver
+                  </th>
+
+                  <th>
+                    Timestamp
+                  </th>
+                  
+                  <th>
+                      Cc
+                  </th>
+
+                  
+                  <th>
+                     Bcc
+                  </th>
+                  
+                  <th>
+                      Sub
+                  </th>
+
+                  <th>
+                      Message
+                  </th>
+                  
+              </tr>
+          </thead>
+          
+          <tbody id="table_sent_email_body">
+          </tbody>
+          
+      </table>
+
+    </div>
+
+    <div id="draftEmail" style="display: none;">
+
+      <table id="detailsDraftEmail">
+    
+          <thead>
+              <tr>
+                  
+                  <th>
+                  </th>
+                  
+                  <th>
+                     Sender
+                  </th>
+                  
+                  <th>
+                      Receiver
+                  </th>
+
+                  <th>
+                    Timestamp
+                  </th>
+                  
+                  <th>
+                      Cc
+                  </th>
+
+                  
+                  <th>
+                     Bcc
+                  </th>
+                  
+                  <th>
+                      Sub
+                  </th>
+
+                  <th>
+                      Message
+                  </th>
+                  
+              </tr>
+          </thead>
+          
+          <tbody id="table_draft_email_body">
+          </tbody>
+          
+      </table>
+
+    </div>
 
 </body>
 </html>
+

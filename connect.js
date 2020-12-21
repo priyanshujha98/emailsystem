@@ -122,7 +122,7 @@ $(document).ready(function(){
 		if (rec.length >0){
 			$.each(rec, function(key,value){
 
-				if (value.includes("@")){
+				if (value.includes("@") && ((value.match(/@/g) || []).length) <2){
 					correct = true
 					$('#rec_danger').text('')
 					$('#rec_danger').css('display','none')
@@ -143,7 +143,7 @@ $(document).ready(function(){
 		check_cc = check_cc.filter(Boolean)
 		if (check_cc.length > 0){
 			$.each(check_cc, function(key,value){
-				if (value.includes("@")){
+				if (value.includes("@") && ((value.match(/@/g) || []).length) <2 ){
 					correct = true
 					$('#cc_danger').text('')
 					$('#cc_danger').css('display','none')
@@ -160,7 +160,7 @@ $(document).ready(function(){
 		check_bcc = check_bcc.filter(Boolean)
 		if (check_bcc.length >0){
 			$.each(check_bcc, function(key,value){
-				if (value.includes("@")){
+				if (value.includes("@") && ((value.match(/@/g) || []).length) <2 ){
 					correct = true
 					$('#bcc_danger').text('')
 					$('#bcc_danger').css('display','none')
@@ -393,7 +393,7 @@ function changeFont(identity){
 		$('#c_e_msg').css('font-style','')
 		$('#c_e_msg').css('text-decoration','')
 	}
-
+	
 	if (selected_font.includes('bold')){
 		$('#c_e_msg').css('font-weight','bold')
 		$('#c_e_msg').css('font-style','')
@@ -425,14 +425,15 @@ function changeFont(identity){
 		$('#c_e_msg').css('text-decoration','underline')
 		$('#c_e_msg').css('font-style','')
 		$('#c_e_msg').css('font-weight','')
-	}
+	
 		if (selected_font.includes('bold')){
 				$('#c_e_msg').css('font-weight','bold')
 			}
 		if (selected_font.includes('italic')){
 				$('#c_e_msg').css('font-style','italic')
 			}
-
+	}
+	
 }
 
 
